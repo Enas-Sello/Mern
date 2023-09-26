@@ -7,6 +7,7 @@ import orders from './routes/orders.route.js'
 import message from './routes/message.route.js'
 import gig from './routes/gig.route.js'
 import conversation from './routes/conversation.route.js'
+import auth from './routes/auth.route.js'
 const app = express()
 dotenv.config();
 
@@ -20,12 +21,13 @@ const conect = async()=>{
 }) 
   }
   catch(error){
-    console.error('Error connecting to MongoDB: ',error);
+    console.error('Error connecting to MongoDB ', error);
 }
 }
 
 // route
-// app.use("/api/auth" ,auth)
+app.use(express.json())
+app.use("/api/auth" ,auth)
 app.use("/api/user" ,user)
 app.use("/api/review" ,review)
 app.use("/api/orders" ,orders)
@@ -35,6 +37,9 @@ app.use("/api/conversation" ,conversation)
 
 conect()
 
+// app.listen(8800,()=>{
+//       console.log('server run at 8800')
+//   }) 
 
 // // Connect to the MongoDB database
 // mongoose.connect(process.env.MONGO)
@@ -47,6 +52,3 @@ conect()
 //   .catch((error) => {
 //     console.error('Error connecting to MongoDB:', error);
 // });
-// app.listen(8800,()=>{
-  //     console.log('server run at 8800')
-  // }) 
