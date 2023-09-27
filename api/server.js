@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from "dotenv"
+import cookieParser from 'cookie-parser';
 import user from './routes/user.route.js'
 import review from './routes/review.route.js'
 import orders from './routes/orders.route.js'
@@ -27,6 +28,7 @@ const conect = async()=>{
 
 // route
 app.use(express.json())
+app.use(cookieParser())
 app.use("/api/auth" ,auth)
 app.use("/api/user" ,user)
 app.use("/api/review" ,review)

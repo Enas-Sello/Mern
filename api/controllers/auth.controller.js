@@ -1,5 +1,7 @@
 import User from "../models/user.model.js"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+
 // register
 export const register = async (req ,res)=>{
 try
@@ -22,8 +24,9 @@ try{
     if (!user)return res.status(404).send("user not found")
     const userPass = bcrypt.compareSync(req.body.password , user.password)
     if (!userPass)return res.status(400).send("wrong password or username")
-   const {password , ...info} = user 
-    res.status(200).send(info)
+   const token = jwt.sign({id :user._id , isSeller:user.isSeller},process.env.JWT)
+    const {password , ...info} = user._doc 
+    res.cookie("accessToken",token,{httpOnly:true}).status(200).send(info)
 
 }
 catch(error)
