@@ -38,10 +38,6 @@ const gigSchema = new Schema({
     type: [String],
     required: false,
   },
-  userId: {
-    type: String,
-    required: true,
-  },
   shortTitle: {
     type: String,
     required: true,
@@ -69,4 +65,4 @@ const gigSchema = new Schema({
     {
         timestamps:true
     })
-export default mongoose.model("gig", gigSchema)
+export default mongoose.model("Gig", gigSchema)

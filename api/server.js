@@ -2,6 +2,7 @@ import express from "express"
 import mongoose from "mongoose"
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
+import cors from "cors"
 import user from "./routes/user.route.js"
 import review from "./routes/review.route.js"
 import orders from "./routes/orders.route.js"
@@ -29,12 +30,13 @@ const connect = async () => {
 // route
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors({origin:"",credentials:true}))
 app.use("/api/auth", auth)
 app.use("/api/user", user)
-app.use("/api/review", review)
-app.use("/api/orders", orders)
-app.use("/api/message", message)
 app.use("/api/gig", gig)
+app.use("/api/orders", orders)
+app.use("/api/review", review)
+app.use("/api/message", message)
 app.use("/api/conversation", conversation)
 app.use(errorHandler)
 
