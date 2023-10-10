@@ -9,7 +9,7 @@ import { verifyToken } from "../middleware/auth.js"
 const router = express.Router()
 
 router.post("/create", verifyToken, createGig)
-router.get("/allGigs", verifyToken, getAllGigs)
-router.get("/:id", verifyToken, getGig)
 router.delete("/:id", verifyToken, deleteGig)
+router.get("/allGigs", getAllGigs)
+router.get("/single/:id", getGig)
 export default router

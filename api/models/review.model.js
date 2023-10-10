@@ -6,7 +6,7 @@ gigID:{
     type:String,
     require:true
 },
-userID:{
+userId:{
     type:String,
     require:true
 },
@@ -22,4 +22,4 @@ description:{
 
 
 },{timestamps:true})
-export default mongoose.model("review", reviewSchema)
+export default mongoose.model("Review", reviewSchema)
