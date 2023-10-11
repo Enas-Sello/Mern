@@ -1,6 +1,8 @@
-import { createError } from "../middleware/errorHandler.js"
+import { createError } from "../middleware/errorHandler.js";
 import Review from "../models/review.model.js";
-import Gig from "../models/gig.model.js";
+import gigModel from "../models/gig.model.js";
+import User from "../models/user.model.js";
+
 // createReview
 export const createReview = async (req, res, next) => {
   if (req.isSeller) {
@@ -8,7 +10,7 @@ export const createReview = async (req, res, next) => {
   }
   const NewReview = new Review({
     userId: req.userId,
-    gigID: req.body.userId,
+    gigID: req.body.gigID,
     description: req.body.description,
     star: req.body.star,
   });
@@ -23,9 +25,12 @@ export const createReview = async (req, res, next) => {
       );
     }
     const saveReview = await NewReview.save();
-    await Gig.findOneAndUpdate(req.body.gigID, {
-      $inc: { totalStars: req.body.totalStars, starNumber: 1 },
-    });
+    await gigModel.findOneAndUpdate(
+      { gigID: req.body.gigID },
+      {
+        $inc: { totalStars: req.body.star, starNumber: 1 },
+      }
+    );
     res.status(201).send(saveReview);
   } catch (error) {
     next(error);
@@ -35,6 +40,8 @@ export const createReview = async (req, res, next) => {
 // getReview
 export const getReview = async (req, res, next) => {
   try {
+    const allReviews = await Review.find({ gigID: req.params.id });
+    res.status(201).send(allReviews);
   } catch (error) {
     next(error);
   }
@@ -42,7 +49,14 @@ export const getReview = async (req, res, next) => {
 
 // deleteReview
 export const deleteReview = async (req, res, next) => {
+  const user = await User.findById(req.userId);
+  const review = await Review.findById(req.params.gigId );
   try {
+    if (user.isSeller) createError("sellers can not delete reviews ", 403);
+    if (review && review.userId !== req.userId)
+      createError("you can only delete your reviews ", 403);
+    await Review.findByIdAndDelete(req.params.id);
+    res.status(200).send("done");
   } catch (error) {
     next(error);
   }

@@ -8,6 +8,6 @@ import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
 router.post("/create", verifyToken, createReview);
-router.get("/:id", verifyToken, getReview);
-router.delete("/:id", verifyToken, deleteReview);
+router.get("/:gigId", verifyToken, getReview);
+router.delete("/delete/:id", verifyToken, deleteReview);
 export default router;
