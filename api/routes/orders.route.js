@@ -1,6 +1,9 @@
-import express from 'express'
-import { fn } from '../controllers/order.controller.js';
+import express from "express";
+import { createOrder, getOrders } from "../controllers/order.controller.js";
+import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
-router.get("/",fn)
+router.post("/create/:gigId", verifyToken, createOrder);
+// router.get("/single", verifyToken, singleOrder);
+router.get("/myOrder", verifyToken, getOrders);
 export default router;

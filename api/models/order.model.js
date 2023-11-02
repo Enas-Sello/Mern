@@ -28,7 +28,7 @@ const orderSchema = new Schema({
     },
     isCompleted:{
         type:Boolean,
-        require:false,
+        default:false,
     },
     payment_intent:{
         type:String,

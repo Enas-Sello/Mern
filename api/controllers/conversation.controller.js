@@ -1,4 +1,5 @@
-export const fn=(req ,res)=>{
-    res.send("it's sms")
-
-}
+export const fn = async (req, res, next) => {
+    try {
+    } catch (error) {next(error)}
+  };
+  
