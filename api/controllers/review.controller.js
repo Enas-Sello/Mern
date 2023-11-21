@@ -2,6 +2,7 @@ import { createError } from "../middleware/errorHandler.js";
 import Review from "../models/review.model.js";
 import gigModel from "../models/gig.model.js";
 import User from "../models/user.model.js";
+import orderModel from "../models/order.model.js";
 
 // createReview
 export const createReview = async (req, res, next) => {
@@ -14,23 +15,36 @@ export const createReview = async (req, res, next) => {
     description: req.body.description,
     star: req.body.star,
   });
+
   try {
     const review = await Review.findOne({
       gigID: req.body.gigID,
       userId: req.userId,
     });
+    const purchasedReview = await orderModel.findOne({
+      gigID: req.body.gigID,
+      userId: req.userId,
+    });
+
     if (review) {
       return next(
         createError("you have already created review for this gig", 403)
       );
     }
+
+    if (!purchasedReview) {
+      return next(createError("you did not  purchased this gig", 403));
+    }
+
     const saveReview = await NewReview.save();
+
     await gigModel.findOneAndUpdate(
-      { gigID: req.body.gigID },
+      { _id: req.body.gigID },
       {
         $inc: { totalStars: req.body.star, starNumber: 1 },
       }
     );
+
     res.status(201).send(saveReview);
   } catch (error) {
     next(error);
@@ -47,14 +61,10 @@ export const getReview = async (req, res, next) => {
   }
 };
 
-
-
-
-
 // deleteReview
 export const deleteReview = async (req, res, next) => {
   const user = await User.findById(req.userId);
-  const review = await Review.findById(req.params.gigId );
+  const review = await Review.findById(req.params.gigId);
   try {
     if (user.isSeller) createError("sellers can not delete reviews ", 403);
     if (review && review.userId !== req.userId)

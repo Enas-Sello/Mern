@@ -1,9 +1,9 @@
 import express from "express";
-import { createOrder, getOrders } from "../controllers/order.controller.js";
+import { createOrder, getOrders, singleOrder } from "../controllers/order.controller.js";
 import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
-router.post("/create/:gigId", verifyToken, createOrder);
-// router.get("/single", verifyToken, singleOrder);
-router.get("/myOrder", verifyToken, getOrders);
+router.get("/", verifyToken, getOrders);
+router.post("/create/:id", verifyToken, createOrder);
+router.get("/:id", verifyToken, singleOrder);
 export default router;
