@@ -30,7 +30,7 @@ const connect = async () => {
 // route
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({origin:"",credentials:true}))
+app.use(cors({ origin: "http://localhost:8800/api/", credentials: true }))
 app.use("/api/auth", auth)
 app.use("/api/user", user)
 app.use("/api/gig", gig)

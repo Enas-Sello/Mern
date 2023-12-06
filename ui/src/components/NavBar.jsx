@@ -1,46 +1,45 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { navLinks, menu } from "../data/MockData";
-import { FaUser } from "react-icons/fa";
+import { useEffect, useState } from "react"
+import { Link, NavLink } from "react-router-dom"
+import { navLinks, menu } from "../data/MockData"
+import { FaUser } from "react-icons/fa"
+import { IoIosArrowDown } from "react-icons/io"
 
-const logo = "market";
-const user = {
-  id: "1",
-  userName: "enas",
-  img: <FaUser />,
-  isSeller: true,
-};
-const renderData = (data) => {
-  return data.map((item) => (
-    <NavLink key={item.id} to={item.link}>
-      <span className=" transition-all ease-in-out">
-        {user?.userName && item.title === "sign in"
-          ? ""
-          : user?.isSeller && item.title === "become a seller"
-          ? ""
-          : item.title}
-      </span>
-    </NavLink>
-  ));
-};
-const NavBar = () => {
-  const [active, setActive] = useState(false);
+const logo = "market"
+
+const NavBar = (data) => {
+  const user = data.data
+
+  const renderData = (data) => {
+    return data.map((item) => (
+      <NavLink key={item.id} to={item.link}>
+        <span className=" transition-all ease-in-out">
+          {user?.username && item.title === "sign in"
+            ? ""
+            : user?.isSeller && item.title === "become a seller"
+            ? ""
+            : item.title}
+        </span>
+      </NavLink>
+    ))
+  }
+  const [active, setActive] = useState(false)
+  const [activeMenu, setActiveMenu] = useState(false)
 
   const isActive = () => {
-    window.scrollY > 0 ? setActive(true) : setActive(false);
-  };
+    window.scrollY > 0 ? setActive(true) : setActive(false)
+  }
 
   useEffect(() => {
-    window.addEventListener("scroll", isActive);
+    window.addEventListener("scroll", isActive)
 
     return () => {
-      window.removeEventListener("scroll", isActive);
-    };
-  }, []);
+      window.removeEventListener("scroll", isActive)
+    }
+  }, [])
 
   const scrollStyle = active
     ? "bg-white  text-gray-950"
-    : "flex flex-col justify-center bg-green-900 items-center text-white";
+    : "flex flex-col justify-center bg-green-900 items-center text-white"
 
   return (
     <div
@@ -60,24 +59,32 @@ const NavBar = () => {
           )}
           {/* user */}
           {user && (
-            <div className="group static mr-8">
-              <Link className=" flex gap-2 justify-center items-center  group-hover:text-green-600">
-                <span className="w-8 h-8 rounded-lg object-cover flex justify-center items-center">
-                  {user.img}
-                </span>
-                <span>{user.userName}</span>
-              </Link>
-              <div className="hidden w-52 group-hover:flex flex-col gap-2 text-gray-500  font-normal  absolute top-12 right-6 p-4 bg-white rounded-lg ">
-                {user?.isSeller && (
-                  <>
-                    <Link>gigs</Link>
-                    <Link>add New gig</Link>
-                  </>
-                )}
-                <Link>orders</Link>
-                <Link>messages</Link>
-                <Link>log out</Link>
+            <div className=" static mr-8">
+              <div className="flex gap-2 justify-center items-center  ">
+                <Link className=" flex gap-2 justify-center items-center ">
+                  <span className="w-8 h-8 rounded-lg object-cover flex justify-center items-center">
+                    {!user.img ? <FaUser /> : user.img}
+                  </span>
+                  <span>{user.username}</span>
+                </Link>{" "}
+                <IoIosArrowDown
+                  className=" w-4 h-4 p-0 mt-1 hover:text-green-600 cursor-pointer"
+                  onClick={() => setActiveMenu(!activeMenu)}
+                />
               </div>
+              {activeMenu && (
+                <div className="w-48 flex flex-col gap-2 text-gray-500  font-normal  absolute top-14 right-6 p-4 bg-white rounded-lg  shadow-lg">
+                  {user?.isSeller && (
+                    <>
+                      <Link>gigs</Link>
+                      <Link>add New gig</Link>
+                    </>
+                  )}
+                  <Link>orders</Link>
+                  <Link>messages</Link>
+                  <Link>log out</Link>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -92,7 +99,7 @@ const NavBar = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default NavBar;
+export default NavBar
