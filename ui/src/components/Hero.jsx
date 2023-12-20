@@ -1,8 +1,8 @@
 import { CiSearch } from "react-icons/ci"
 
-const Featured = () => {
+const Hero = () => {
   return (
-    <div className="bg-main text-white  h-[calc(100%-80px)] flex justify-center items-center p-10">
+    <section className="bg-main text-white  h-[calc(100%-80px)] flex justify-center items-center p-10">
       <div className=" grid grid-cols-2 justify-between w-screen items-center">
         <div className="lg:col-span-1 col-span-2 grid grid-row-3 gap-10">
           <h1 className="text-2xl font-semibold lg:text-5xl">
@@ -36,8 +36,8 @@ const Featured = () => {
           <img className=" h-full object-contain" src="./img/man.png" alt="" />
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 
-export default Featured
+export default Hero

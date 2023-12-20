@@ -42,7 +42,7 @@ const NavBar = ({ data: { user, logo } }) => {
 
   return (
     <div
-      className={` ${scrollStyle} h-auto transition-all duration-[.5s] ease-in-out sticky top-0 `}
+      className={` ${scrollStyle} h-auto transition-all duration-[.5s] ease-in-out sticky top-0 z-50 `}
     >
       <div className=" w-full flex justify-between py-5 px-3 ">
         <div className=" text-3xl font-bold">

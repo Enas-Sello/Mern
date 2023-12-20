@@ -16,4 +16,8 @@
   .links {
     @apply text-white  text-sm bg-transparent border-[1px] border-white rounded-3xl px-3 py-2 hover:text-green-600;
   }
+  .trustedImg {
+    @apply h-14 object-contain;
+  }
 }
+
