@@ -1,8 +1,5 @@
-
 const Gig = () => {
-  return (
-    <div>Gig</div>
-  )
+  return <div>single gig</div>
 }
 
 export default Gig

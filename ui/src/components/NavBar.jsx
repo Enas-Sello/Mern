@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react"
-import { Link, NavLink } from "react-router-dom"
+import { Link, NavLink, useLocation } from "react-router-dom"
 import { navLinks, menu } from "../data/MockData"
 import { FaUser } from "react-icons/fa"
 import { IoIosArrowDown } from "react-icons/io"
+import PropTypes from "prop-types"
 
-const logo = "market"
-
-const NavBar = (data) => {
-  const user = data.data
-
+const NavBar = ({ data: { user, logo } }) => {
+  const { pathname } = useLocation()
   const renderData = (data) => {
     return data.map((item) => (
       <NavLink key={item.id} to={item.link}>
@@ -37,13 +35,14 @@ const NavBar = (data) => {
     }
   }, [])
 
-  const scrollStyle = active
-    ? "bg-white  text-gray-950"
-    : "flex flex-col justify-center bg-green-900 items-center text-white"
+  const scrollStyle =
+    active || pathname !== "/"
+      ? "bg-white  text-gray-950  shadow-2xl  rounded-lg "
+      : "flex flex-col justify-center bg-main items-center text-white  h-20"
 
   return (
     <div
-      className={` ${scrollStyle} transition-all duration-[.5s] ease-in-out sticky top-0 `}
+      className={` ${scrollStyle} h-auto transition-all duration-[.5s] ease-in-out sticky top-0 `}
     >
       <div className=" w-full flex justify-between py-5 px-3 ">
         <div className=" text-3xl font-bold">
@@ -90,10 +89,10 @@ const NavBar = (data) => {
         </div>
       </div>
       {/* menu */}
-      {active && (
+      {(active || pathname !== "/") && (
         <>
           <hr className=" w-full border-gray-400" />
-          <div className="w-full p-2 flex justify-between font-light text-gray-400">
+          <div className="w-full p-2 grid grid-cols-9 gap-3 items-center text-center   font-light text-gray-400  text-xs lg:text-base">
             {renderData(menu)}
           </div>
         </>
@@ -103,3 +102,18 @@ const NavBar = (data) => {
 }
 
 export default NavBar
+
+NavBar.propTypes = {
+  data: PropTypes.shape({
+    user: PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      isSeller: PropTypes.bool.isRequired,
+      createdAt: PropTypes.string.isRequired,
+      updatedAt: PropTypes.string.isRequired,
+      img: PropTypes.string.isRequired,
+    }).isRequired,
+    logo: PropTypes.string.isRequired,
+  }).isRequired,
+}
