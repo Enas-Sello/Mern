@@ -18,7 +18,7 @@ const Hero = () => {
                 placeholder='Try "building mobil app"'
               />
             </div>
-            <button className="w-28 h-12 border-none text-white cursor-pointer bg-green-600 rounded-e-md">
+            <button className="w-28 h-12 border-none text-white cursor-pointer bg-green-600 rounded-e-md text-lg">
               search
             </button>
           </div>

@@ -52,6 +52,7 @@ const Home = () => {
         ))}
       </Slide>
       <Features features={features1} section={true} />
+     
     </>
   )
 }

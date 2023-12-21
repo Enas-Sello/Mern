@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 const Card = ({ card: { id, title, desc, img } }) => {
   return (
-    <Link to={`/gig/${id}`}>
+    <Link to={`/gigs`}>
       <div className="w-[300px] h-[300px] text-white rounded-lg cursor-pointer relative">
         <img className="w-full h-full object-cover" src={img} alt="" />
         <span className=" absolute top-4 left-4 font-light">{desc}</span>
