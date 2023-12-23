@@ -4,11 +4,8 @@
 
 @layer base {
   body {
-    padding: 0;
-    margin: 0px;
-    /* font-family: "Roboto", sans-serif;  */
-    /* color: #333; */
-    text-transform: capitalize;
+    @apply p-0 m-0 capitalize transition-all ease-in-out
+    /* font-family: "Roboto", sans-serif;  */;
   }
   a {
     @apply hover:text-green-600;
@@ -20,12 +17,20 @@
     @apply h-14 object-contain;
   }
   .item {
-    @apply  flex flex-col gap-1;
+    @apply flex flex-col gap-1;
   }
   .title {
-    @apply  text-gray-600 ;
+    @apply text-gray-600;
   }
   .desc {
-    @apply text-lg font-medium ;
+    @apply text-lg font-medium;
+  }
+  .add label {
+    @apply text-gray-600 text-lg;
+  }
+  .add input,
+  .add select,
+  .add textarea {
+    @apply outline-none border-2 rounded-md p-2 w-full text-gray-600;
   }
 }
