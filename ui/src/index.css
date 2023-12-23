@@ -12,3 +12,10 @@
 .card .carousel-prev {
   @apply left-1;
 }
+.table th,td {
+  @apply  text-left p-2 
+}
+
+.table tr{
+  @apply  even:bg-green-400 even:bg-opacity-10  h-12
+ }

@@ -75,13 +75,38 @@ const NavBar = ({ data: { user, logo } }) => {
                 <div className="w-48 flex flex-col gap-2 text-gray-500  font-normal  absolute top-14 right-6 p-4 bg-white rounded-lg  shadow-lg">
                   {user?.isSeller && (
                     <>
-                      <Link>gigs</Link>
-                      <Link>add New gig</Link>
+                      <Link
+                        onClick={() => setActiveMenu(!activeMenu)}
+                        to={"/myGigs"}
+                      >
+                        gigs
+                      </Link>
+                      <Link
+                        onClick={() => setActiveMenu(!activeMenu)}
+                        to={"/add"}
+                      >
+                        add New gig
+                      </Link>
                     </>
                   )}
-                  <Link>orders</Link>
-                  <Link>messages</Link>
-                  <Link>log out</Link>
+                  <Link
+                    onClick={() => setActiveMenu(!activeMenu)}
+                    to={"/orders"}
+                  >
+                    orders
+                  </Link>
+                  <Link
+                    onClick={() => setActiveMenu(!activeMenu)}
+                    to={"/messages"}
+                  >
+                    messages
+                  </Link>
+                  <Link
+                    onClick={() => setActiveMenu(!activeMenu)}
+                    to={"/"}
+                  >
+                    log out
+                  </Link>
                 </div>
               )}
             </div>

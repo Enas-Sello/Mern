@@ -75,11 +75,11 @@ const App = () => {
         },
         {
           path: "/orders",
-          element: <Orders />,
+          element: <Orders user={data.user} />,
         },
         {
           path: "/messages",
-          element: <Messages />,
+          element: <Messages user={data.user} />,
         },
         {
           path: "/message/:id",
