@@ -15,7 +15,7 @@ const Gigs = () => {
   return (
     <section>
       <div className=" flex flex-col gap-3 p-10">
-        <span className=" text-gray-600">Graphics & Design </span>
+        <span className=" text-gray-600">Liverr > Graphics & Design </span>
         <h1 className=" text-4xl font-bold">AI Artists</h1>
         <p className=" text-gray-600">
           Explore the boundaries of art and technology with Liver's AI artists

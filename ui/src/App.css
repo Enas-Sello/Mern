@@ -19,5 +19,13 @@
   .trustedImg {
     @apply h-14 object-contain;
   }
+  .item {
+    @apply  flex flex-col gap-1;
+  }
+  .title {
+    @apply  text-gray-600 ;
+  }
+  .desc {
+    @apply text-lg font-medium ;
+  }
 }
-

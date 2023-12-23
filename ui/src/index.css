@@ -1,14 +1,14 @@
-.carousel-initialized {
+.card .carousel-initialized {
   @apply static;
 }
-.carousel-prev,
-.carousel-next {
+.card .carousel-prev,
+.card .carousel-next {
   @apply w-14  h-14 bg-[#fecaca9b] rounded-full absolute m-auto top-0 bottom-0;
 }
 
-.carousel-next {
+.card .carousel-next {
   @apply right-8;
 }
-.carousel-prev {
+.card .carousel-prev {
   @apply left-1;
 }
