@@ -15,35 +15,11 @@ import Orders from "./pages/Orders"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
 
-// import { useQuery } from "react-query"
-// import axios from "axios"
-// import Loading from "./components/Loading"
 
 const App = () => {
-  // const { isLoading, error, Gigs } = useQuery("data", () =>
-  //   axios
-  //     .get("http://localhost:8800/api/gig/allGigs", {
-  //       withCredentials: true,
-  //     })
-  //     .then(() => {
-  //       // Handle the response
-  //     })
-  //     .catch((error) => {
-  //       console.log("error msg", error.message)
-  //     })
-  // )
-  // if (isLoading) return <Loading />
-  // if (error) return "An error has occurred: " + error.message
   
   const data = {
-    user: {
-      _id: "6570d1d968285ea7e821ebc8",
-      username: "enasSeller",
-      email: "enasSeller@gmail.com",
-      isSeller: true,
-      createdAt: "2023-12-06T19:56:09.525Z",
-      updatedAt: "2023-12-06T19:56:09.525Z",
-    },
+    user: JSON.parse(localStorage.getItem("currentUser")),
     logo: "market",
   }
 
