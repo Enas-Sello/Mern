@@ -1,23 +1,27 @@
 import { useState } from "react"
-import NewRequest from "../utils/NewRequest"
+import NewRequest from "../utils/GetRequest"
 import { useNavigate } from "react-router-dom"
+import { useAddData } from "../utils/PostRequest"
 const Login = () => {
   const [user, setUser] = useState({ username: "", password: "" })
   const navigate = useNavigate()
-  const handleSubmit = async (e) => {
+
+  const { mutate } = useAddData("auth/login")
+  const handleSubmit = (e) => {
     e.preventDefault()
     try {
-      const res = await NewRequest.post(`auth/login`, {
-        username: user.username,
-        password: user.password,
-      })
-      localStorage.setItem("currentUser", JSON.stringify(res.data))
-      navigate("/")
+      const res = mutate({ username: user.username, password: user.password })
+      // const res = await NewRequest.post(`auth/login`, {
+      //   username: user.username,
+      //   password: user.password,
+      // })
+      // localStorage.setItem("currentUser", JSON.stringify(res.data))
+      // navigate("/")
+      console.log(res)
     } catch (err) {
       console.log(err.response.data)
     }
   }
-
   return (
     <div>
       <form action="" onSubmit={handleSubmit}>

@@ -6,8 +6,6 @@ import Trusted from "../components/Trusted"
 import { cards, features1, features2, projects } from "../data/MockData"
 import Features from "../components/Features"
 import ProjectCard from "../components/ProjectCard"
-import { useQuery } from "react-query"
-import axios from "axios"
 
 function getSlidesToShow() {
   const windowWidth = window.innerWidth
@@ -37,16 +35,6 @@ const Home = () => {
       window.removeEventListener("resize", handleResize)
     }
   }, [])
-
-  const fetchData = () => {
-    return axios.get("http://localhost:8800/api/gig/allGigs", {
-      withCredentials: true,
-    })
-  }
-  const { isLoading, error, data:allGigs } = useQuery("user", fetchData)
-  if (isLoading) return <h2>loading</h2>
-  if (error) return "An error has occurred: " + error.message
-  if (!isLoading) console.log("allGigs", allGigs)
 
   return (
     <>

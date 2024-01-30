@@ -2,7 +2,7 @@ const navLinks = [
   { id: "1", title: "business", link: "/business" },
   { id: "2", title: "explore", link: "/explore" },
   { id: "3", title: "english", link: "/english" },
-  { id: "4", title: "sign in", link: "/sign-in" },
+  { id: "4", title: "sign in", link: "/login" },
   { id: "5", title: "become a seller", link: "/become-a-seller" },
   // { id: "6", title: "join", link: "/join" },
 ]

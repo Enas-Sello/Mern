@@ -5,10 +5,14 @@ import { IoCheckmarkSharp } from "react-icons/io5"
 import { AiOutlineDislike, AiOutlineLike } from "react-icons/ai"
 import { Slider } from "infinite-react-carousel"
 
-const Gig = () => {
+const Gig = () =>
+{
+  
+
+  
   return (
     <section className="p-10 flex flex-col gap-5">
-      <span>Liverr > Graphics & Design</span>
+      <span>Liverr {">"} Graphics & Design</span>
       <div className="grid grid-cols-6 gap-10">
         <div className="col-span-6  lg:col-span-4 flex flex-col gap-6">
           <h1 className=" text-3xl font-semibold ">
