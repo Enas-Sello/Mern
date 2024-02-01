@@ -3,43 +3,34 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import user from "./routes/user.route.js";
-import review from "./routes/review.route.js";
-import orders from "./routes/orders.route.js";
-import message from "./routes/message.route.js";
-import gig from "./routes/gig.route.js";
-import conversation from "./routes/conversation.route.js";
-import auth from "./routes/auth.route.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import routes from "./routes/index.js";
+
 const app = express();
 dotenv.config();
 const corsOptions = {
-  origin: "*",
+  origin: process.env.CORS_URL,
   credentials: true,
 };
 const PORT = 8801;
-// Connect to the MongoDB database
+// Connect to DB
 async function run() {
   try {
-    await mongoose.connect(process.env.MONGO);
+    await mongoose.connect(process.env.DB_URL);
     console.log("Connected to MongoDB success");
-    app.listen(PORT, () => {
-      console.log(`server run at ${PORT}`);
+
+    app.listen(process.env.PORT || 8800, () => {
+      console.log(`Server running at ${process.env.PORT || 8800}`);
     });
-  } catch (error) {
-    console.error("Error connecting to MongoDB ", error);
+  } catch (e) {
+    console.error("Error connecting to MongoDB ", e);
   }
 }
 run().catch(console.dir);
-// route
+
+// Route
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api/auth", auth);
-app.use("/api/user", user);
-app.use("/api/gig", gig);
-app.use("/api/orders", orders);
-app.use("/api/review", review);
-app.use("/api/conversation", conversation);
-app.use("/api/message", message);
+app.use("/", routes)
 app.use(errorHandler);

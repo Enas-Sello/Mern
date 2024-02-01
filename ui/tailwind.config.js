@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        main: "#14532d",
+        main: "#708090",
       },
       gridTemplateColumns: {
         view: "max-content 1fr",
