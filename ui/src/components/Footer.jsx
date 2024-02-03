@@ -37,13 +37,13 @@ const Footer = () => {
           <h2>livres</h2>
           <span>© Livres International Ltd. 2023</span>
         </div>
-        <div className="flex  justify-between items-center gap-1 md:gap-10">
+        <div className="flex  justify-between items-center gap-3 md:gap-10">
           <div className="flex gap-3">
-            <FaTwitter className=" hover:text-green-600" />
-            <FaFacebook className=" hover:text-green-600" />
-            <FaLinkedin className=" hover:text-green-600" />
-            <FaPinterest className=" hover:text-green-600" />
-            <FaInstagram className=" hover:text-green-600" />
+            <FaTwitter className=" hover:text-subtext" />
+            <FaFacebook className=" hover:text-subtext" />
+            <FaLinkedin className=" hover:text-subtext" />
+            <FaPinterest className=" hover:text-subtext" />
+            <FaInstagram className=" hover:text-subtext" />
           </div>
           <div className="flex items-center gap-1 ">
             <GrLanguage />

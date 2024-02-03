@@ -1,10 +1,10 @@
-import PropTypes from "prop-types"
-import { Link } from "react-router-dom"
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const message = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident
   maxime cum corporis esse aspernatur laborum dolorum? Animi
   molestias aliquam, cum nesciunt, aut, ut quam vitae saepe repellat
-  nobis praesentium placeat.`
+  nobis praesentium placeat.`;
 
 const Messages = ({ user }) => {
   return (
@@ -22,26 +22,26 @@ const Messages = ({ user }) => {
             <td>Charley Sharp</td>
             <td>
               <Link to="/message/123" className="">
-                {message.substring(0, 15 )}...
+                {message.substring(0, 15)}...
               </Link>
             </td>
             <td>1 hour ago</td>
             <td>
-              <button className="text-center py-1 px-2 rounded-sm capitalize font-medium bg-green-600 text-white border-transparent">
-                mark as read 
+              <button className="text-center py-1 px-2 rounded-sm capitalize font-medium bg-green-600 text-creamson border-transparent">
+                mark as read
               </button>
             </td>
           </tr>
         </table>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Messages
+export default Messages;
 
 Messages.propTypes = {
   user: PropTypes.shape({
     isSeller: PropTypes.bool.isRequired,
   }).isRequired,
-}
+};

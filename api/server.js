@@ -19,7 +19,7 @@ async function run() {
     await mongoose.connect(process.env.DB_URL);
     console.log("Connected to MongoDB success");
 
-    app.listen(process.env.PORT || 8800, () => {
+    app.listen(process.env.PORT || 8801, () => {
       console.log(`Server running at ${process.env.PORT || 8800}`);
     });
   } catch (e) {
@@ -32,5 +32,5 @@ run().catch(console.dir);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
-app.use("/", routes)
+app.use("/api", routes)
 app.use(errorHandler);

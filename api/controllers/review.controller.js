@@ -54,7 +54,7 @@ export const createReview = async (req, res, next) => {
 // getReview
 export const getReview = async (req, res, next) => {
   try {
-    const allReviews = await Review.find({ gigID: req.params.id });
+    const allReviews = await Review.find({ gigID: req.params.gigID });
     res.status(201).send(allReviews);
   } catch (error) {
     next(error);

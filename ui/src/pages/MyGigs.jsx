@@ -1,5 +1,5 @@
-import { MdDelete } from "react-icons/md"
-import {Link} from 'react-router-dom'
+import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
 const MyGigs = () => {
   return (
     <section className="p-20">
@@ -8,7 +8,7 @@ const MyGigs = () => {
           <h1 className=" text-2xl font-bold">Gigs</h1>
           <Link
             to={"/add"}
-            className="text-center py-1 px-2 rounded-sm capitalize font-medium bg-green-600 text-white border-transparent hover:bg-white border hover:border-gray-300"
+            className="text-center py-1 px-2 rounded-sm capitalize font-medium bg-green-600 text-creamson border-transparent hover:bg-white border hover:border-gray-300"
           >
             add new gig
           </Link>
@@ -41,7 +41,7 @@ const MyGigs = () => {
         </table>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default MyGigs
+export default MyGigs;

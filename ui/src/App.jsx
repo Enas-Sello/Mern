@@ -15,25 +15,8 @@ import Orders from "./pages/Orders"
 import Register from "./pages/Register"
 import Login from "./pages/Login"
 
-// import { useQuery } from "react-query"
-// import axios from "axios"
-// import Loading from "./components/Loading"
 
 const App = () => {
-  // const { isLoading, error, Gigs } = useQuery("data", () =>
-  //   axios
-  //     .get("http://localhost:8800/api/gig/allGigs", {
-  //       withCredentials: true,
-  //     })
-  //     .then(() => {
-  //       // Handle the response
-  //     })
-  //     .catch((error) => {
-  //       console.log("error msg", error.message)
-  //     })
-  // )
-  // if (isLoading) return <Loading />
-  // if (error) return "An error has occurred: " + error.message
   
   const data = {
     user: {
@@ -50,7 +33,7 @@ const App = () => {
   const Layout = () => {
     return (
       <div className="app">
-        <NavBar data={data} />
+        <NavBar logo={data.logo} />
         <Outlet />
         <Footer />
       </div>

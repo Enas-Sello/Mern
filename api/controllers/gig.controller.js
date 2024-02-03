@@ -1,3 +1,4 @@
+import { validationError } from "../core/ValidationError.js";
 import { createError } from "../middleware/errorHandler.js";
 import gigModel from "../models/gig.model.js";
 
@@ -9,6 +10,12 @@ export const createGig = async (req, res, next) => {
     userId: req.userId,
     ...req.body,
   });
+   // Validate the bank instance
+   const errors = validationError(newGig);
+   if (errors) {
+     res.status(400).json({ errors });
+   }
+
   try {
     const saveGig = await newGig.save();
     res.status(200).json(saveGig);

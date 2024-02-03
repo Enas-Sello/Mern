@@ -1,13 +1,13 @@
-import PropTypes from "prop-types"
-import { FaRegCheckCircle } from "react-icons/fa"
+import PropTypes from "prop-types";
+import { FaRegCheckCircle } from "react-icons/fa";
 
 const Features = (props) => {
-  const { features } = props
-  const { section } = props
+  const { features } = props;
+  const { section } = props;
   return (
     <div
       className={` flex justify-center items-center w-full h-full ${
-        section ? "bg-blue-950 text-white" : "bg-green-50"
+        section ? "bg-main text-creamson" : "bg-text bg-opacity-30"
       }  py-20`}
     >
       <div className="grid grid-cols-5 justify-between items-center gap-10 w-full p-10">
@@ -23,17 +23,17 @@ const Features = (props) => {
             <div key={item.id} className="flex flex-col gap-3">
               <div
                 className={`flex items-center gap-2 ${
-                  section ? "text-white" : "text-gray-700"
+                  section ? "text-creamson" : "text-gray-700"
                 }
                `}
               >
                 <FaRegCheckCircle
-                  className={section ? "text-white" : " text-lime-300"}
+                  className={section ? "text-creamson" : " text-lime-300"}
                 />
                 {item.feature}
               </div>
               <p
-                className={` ${section ? "text-white" : "text-gray-700"}
+                className={` ${section ? "text-creamson" : "text-gray-700"}
               text-lg font-light text-gray-500 leading-7 `}
               >
                 {item.des && item.des}
@@ -57,19 +57,19 @@ const Features = (props) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Features
+export default Features;
 
 Features.propTypes = {
   features: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    des: PropTypes.string.isRequired,
-    p: PropTypes.string.isRequired,
-    button: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
-    features: PropTypes.array.isRequired,
+    title: PropTypes.string,
+    des: PropTypes.string,
+    p: PropTypes.string,
+    button: PropTypes.string,
+    img: PropTypes.string,
+    features: PropTypes.array,
   }).isRequired,
   section: PropTypes.bool,
-}
+};

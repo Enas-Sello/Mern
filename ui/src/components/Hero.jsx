@@ -1,8 +1,8 @@
-import { CiSearch } from "react-icons/ci"
+import { CiSearch } from "react-icons/ci";
 
 const Hero = () => {
   return (
-    <section className="bg-main text-white  h-[calc(100%-80px)] flex justify-center items-center p-10">
+    <section className="bg-primary text-creamson  h-[calc(100%-80px)] flex justify-center items-center p-10">
       <div className=" grid grid-cols-2 justify-between w-screen items-center">
         <div className="lg:col-span-1 col-span-2 grid grid-row-3 gap-10">
           <h1 className="text-2xl font-semibold lg:text-5xl">
@@ -18,8 +18,8 @@ const Hero = () => {
                 placeholder='Try "building mobil app"'
               />
             </div>
-            <button className="w-28 h-12 border-none text-white cursor-pointer bg-green-600 rounded-e-md text-lg">
-              search
+            <button className="w-28 h-12 border-none text-creamson cursor-pointer bg-secondary rounded-e-md text-lg font-semibold">
+              Search
             </button>
           </div>
           <div className="flex flex-col md:flex-row md:items-center gap-3">
@@ -37,7 +37,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
+export default Hero;

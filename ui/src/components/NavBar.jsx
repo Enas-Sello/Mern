@@ -1,12 +1,31 @@
-import { useEffect, useState } from "react"
-import { Link, NavLink, useLocation } from "react-router-dom"
-import { navLinks, menu } from "../data/MockData"
-import { FaUser } from "react-icons/fa"
-import { IoIosArrowDown } from "react-icons/io"
-import PropTypes from "prop-types"
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { navLinks, menu } from "../data/MockData";
+import { FaUser } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
+import PropTypes from "prop-types";
+import { useApiMutation } from "../utils/UseFeatchData";
 
-const NavBar = ({ data: { user, logo } }) => {
-  const { pathname } = useLocation()
+const NavBar = ({ logo }) => {
+  const [active, setActive] = useState(false);
+  const { pathname } = useLocation();
+  const [activeMenu, setActiveMenu] = useState(false);
+  //  get user info
+  const user = JSON.parse(localStorage.getItem("currentUser"));
+
+  const isActive = () => {
+    window.scrollY > 0 ? setActive(true) : setActive(false);
+  };
+
+  // add scroll effect
+  useEffect(() => {
+    window.addEventListener("scroll", isActive);
+
+    return () => {
+      window.removeEventListener("scroll", isActive);
+    };
+  }, []);
+
   const renderData = (data) => {
     return data.map((item) => (
       <NavLink key={item.id} to={item.link}>
@@ -18,27 +37,27 @@ const NavBar = ({ data: { user, logo } }) => {
             : item.title}
         </span>
       </NavLink>
-    ))
-  }
-  const [active, setActive] = useState(false)
-  const [activeMenu, setActiveMenu] = useState(false)
+    ));
+  };
 
-  const isActive = () => {
-    window.scrollY > 0 ? setActive(true) : setActive(false)
-  }
-
-  useEffect(() => {
-    window.addEventListener("scroll", isActive)
-
-    return () => {
-      window.removeEventListener("scroll", isActive)
-    }
-  }, [])
-
+  // style effects
   const scrollStyle =
     active || pathname !== "/"
-      ? "bg-white  text-gray-950  shadow-2xl  rounded-lg "
-      : "flex flex-col justify-center bg-main items-center text-white  h-20"
+      ? "bg-white  text-main  shadow-2xl  rounded-lg "
+      : "flex flex-col justify-center bg-primary items-center text-creamson  h-20";
+
+  // log out
+  const useLogoutMutation = () => {
+    return useApiMutation("auth/logout");
+  };
+
+  const logoutMutation = useLogoutMutation();
+  const handlelogout = (e) => {
+    e.preventDefault();
+    setActiveMenu(!activeMenu);
+    logoutMutation.mutate();
+    localStorage.removeItem("currentUser", null);
+  };
 
   return (
     <div
@@ -46,8 +65,10 @@ const NavBar = ({ data: { user, logo } }) => {
     >
       <div className=" w-full flex justify-between py-5 px-3 ">
         <div className=" text-3xl font-bold">
-          <span className=" ">{logo}</span>
-          <span className=" text-green-600"> .</span>
+          <Link to={"/"} className=" hover:!text-inherit">
+            {logo}
+          </Link>
+          <span className="text-subtext"> .</span>
         </div>
         <div className=" flex justify-between items-center gap-2 md:gap-3 lg:gap-10 font-semibold text-sm md:text-base ">
           {renderData(navLinks)}
@@ -67,7 +88,7 @@ const NavBar = ({ data: { user, logo } }) => {
                   <span>{user.username}</span>
                 </Link>{" "}
                 <IoIosArrowDown
-                  className=" w-4 h-4 p-0 mt-1 hover:text-green-600 cursor-pointer"
+                  className=" w-4 h-4 p-0 mt-1 hover:text-subtext cursor-pointer"
                   onClick={() => setActiveMenu(!activeMenu)}
                 />
               </div>
@@ -79,7 +100,7 @@ const NavBar = ({ data: { user, logo } }) => {
                         onClick={() => setActiveMenu(!activeMenu)}
                         to={"/myGigs"}
                       >
-                        gigs
+                        my gigs
                       </Link>
                       <Link
                         onClick={() => setActiveMenu(!activeMenu)}
@@ -101,10 +122,7 @@ const NavBar = ({ data: { user, logo } }) => {
                   >
                     messages
                   </Link>
-                  <Link
-                    onClick={() => setActiveMenu(!activeMenu)}
-                    to={"/"}
-                  >
+                  <Link onClick={handlelogout} to={"/"}>
                     log out
                   </Link>
                 </div>
@@ -123,22 +141,11 @@ const NavBar = ({ data: { user, logo } }) => {
         </>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;
 
 NavBar.propTypes = {
-  data: PropTypes.shape({
-    user: PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      username: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      isSeller: PropTypes.bool.isRequired,
-      createdAt: PropTypes.string.isRequired,
-      updatedAt: PropTypes.string.isRequired,
-      img: PropTypes.string.isRequired,
-    }).isRequired,
-    logo: PropTypes.string.isRequired,
-  }).isRequired,
-}
+  logo: PropTypes.string.isRequired,
+};

@@ -8,10 +8,10 @@
     /* font-family: "Roboto", sans-serif;  */;
   }
   a {
-    @apply hover:text-green-600;
+    @apply hover:text-subtext;
   }
   .links {
-    @apply text-white  text-sm bg-transparent border-[1px] border-white rounded-3xl px-3 py-2 hover:text-green-600;
+    @apply text-creamson  text-sm bg-transparent border-[1px] border-creamson rounded-3xl px-3 py-2 hover:text-subtext;
   }
   .trustedImg {
     @apply h-14 object-contain;
