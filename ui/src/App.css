@@ -33,4 +33,11 @@
   .add textarea {
     @apply outline-none border-2 rounded-md p-2 w-full text-gray-600;
   }
+  .login {
+    background: linear-gradient(#141e30, #243b55);
+  }
+  .login form {
+    	background-color: rgba(0, 0, 0, 0.2);
+
+  }
 }
