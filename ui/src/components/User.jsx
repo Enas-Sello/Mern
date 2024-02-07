@@ -1,8 +1,8 @@
-import { FaStar, FaUser } from "react-icons/fa6";
-import { useApiQuery } from "../utils/UseFeatchData";
-import Loading from "./Loading";
-import Error from "./Error";
-import { GiPirateFlag } from "react-icons/gi";
+import { FaStar, FaUser } from "react-icons/fa6"
+import { useApiQuery } from "../utils/UseFeatchData"
+import Loading from "./Loading"
+import Error from "./Error"
+import { GiPirateFlag } from "react-icons/gi"
 
 const User = ({ id, imgStyle, nameStyle, country = false, rating = false }) => {
   const {
@@ -10,7 +10,9 @@ const User = ({ id, imgStyle, nameStyle, country = false, rating = false }) => {
     isLoading,
     isError,
     error,
-  } = useApiQuery(`user${id}`, `user/single/${id}`);
+  } = useApiQuery(`user${id}`, `user/single/${id}`)
+  console.log("ll", user)
+
   return (
     <>
       {isLoading && <Loading />}
@@ -33,7 +35,7 @@ const User = ({ id, imgStyle, nameStyle, country = false, rating = false }) => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default User;
+export default User

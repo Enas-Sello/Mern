@@ -1,24 +1,24 @@
-import { FiClock } from "react-icons/fi";
-import { GiRecycle } from "react-icons/gi";
-import { IoCheckmarkSharp } from "react-icons/io5";
-import { Slider } from "infinite-react-carousel";
-import { useApiQuery } from "../utils/UseFeatchData";
-import { useParams } from "react-router-dom";
-import User from "../components/User";
-import Loading from "../components/Loading";
-import Error from "../components/Error";
-import SellerInfo from "../components/SellerInfo";
-import Review from "../components/Review";
-import Rating from "../components/Rating";
+import { FiClock } from "react-icons/fi"
+import { GiRecycle } from "react-icons/gi"
+import { IoCheckmarkSharp } from "react-icons/io5"
+import { Slider } from "infinite-react-carousel"
+import { useApiQuery } from "../utils/UseFeatchData"
+import { useParams } from "react-router-dom"
+import User from "../components/User"
+import Loading from "../components/Loading"
+import Error from "../components/Error"
+import SellerInfo from "../components/SellerInfo"
+import Review from "../components/Review"
+import Rating from "../components/Rating"
 const Gig = () => {
-  const { id } = useParams();
+  const { id } = useParams()
 
   const {
     data: gig,
     isLoading,
     isError,
     error,
-  } = useApiQuery(`gig/${id}`, `gig/single/${id}`);
+  } = useApiQuery(`gig/${id}`, `gig/single/${id}`)
   return (
     <section className="p-10 flex flex-col gap-5">
       {isLoading && <Loading />}
@@ -57,21 +57,21 @@ const Gig = () => {
               <p className="text-gray-500 text-sm">{gig?.description}</p>
             </div>
             {/* seller */}
-            <SellerInfo />
+            <SellerInfo id={gig?.userId} />
             {/* reviews  */}
             <Review gigID={gig._id} />
           </div>
           {/* buy section */}
           <div className=" col-span-6  lg:col-span-2 ">
             <div className=" border-2 rounded-sm p-3 flex flex-col gap-3 sticky top-36">
-              <div className="flex justify-between">
-                <h3 className=" text-2xl font-semibold ">{gig.shortTitle} </h3>
-                <h2 className=" text-xl font-normal ">{gig.price} $</h2>
+              <div className="flex justify-between items-center">
+                <h3 className=" text-xl font-semibold ">{gig.shortTitle} </h3>
+                <h2 className=" text-xl font-normal ">{gig.price}$</h2>
               </div>
               <p className=" text-gray-500">{gig.shortDesc}</p>
               <div className="flex justify-between">
                 <div className="flex gap-2 items-center">
-                  <FiClock />
+                  <FiClock className=" text-cyan-900" />
                   <span className="font-normal">
                     {gig.deliveryTime} Days Delivery
                   </span>
@@ -101,7 +101,7 @@ const Gig = () => {
         </div>
       )}
     </section>
-  );
-};
+  )
+}
 
-export default Gig;
+export default Gig

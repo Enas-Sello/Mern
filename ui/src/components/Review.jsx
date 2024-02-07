@@ -5,6 +5,7 @@ import Loading from "./Loading";
 import Error from "./Error";
 import Rating from "./Rating";
 
+// eslint-disable-next-line react/prop-types
 const Review = ({ gigID }) => {
   console.log("gigID", gigID);
   const {

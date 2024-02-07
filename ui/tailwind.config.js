@@ -8,9 +8,10 @@ export default {
         // primary: "#b1454a",
         // secondary: "#121221",
         creamson: "#fff0de",
-        main: "#040C18",
-        primary : "#031B34",
-        secondary: "#042c54",
+        main: "rgb(8 51 68 / 1)",
+        primary: "rgb(21 94 117 / 1)",
+        secondary: "rgb(14 116 144 / 1)",
+        // secondary: "#042c54",
         text: "#81AFDD",
         subtext: "#FF8A71",
       },
@@ -24,4 +25,4 @@ export default {
   },
 
   plugins: [],
-};
+}
