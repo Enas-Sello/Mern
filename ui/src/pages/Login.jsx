@@ -1,27 +1,27 @@
-import { useState } from "react"
-import { useApiMutation } from "../utils/UseFeatchData"
-import { useNavigate } from "react-router"
+import { useState } from "react";
+import { useApiMutation } from "../utils/UseFeatchData";
+import { useNavigate } from "react-router";
 
 const Login = () => {
-  const [username, setUserName] = useState("")
-  const [password, setPassword] = useState("")
-  const navigate = useNavigate()
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const useLoginMutation = () => {
-    return useApiMutation("auth/login")
-  }
+    return useApiMutation("auth/login");
+  };
 
-  const loginMutation = useLoginMutation()
+  const loginMutation = useLoginMutation();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const res = await loginMutation.mutateAsync({ username, password })
-      localStorage.setItem("currentUser", JSON.stringify(res))
-      navigate("/")
+      const res = await loginMutation.mutateAsync({ username, password });
+      localStorage.setItem("currentUser", JSON.stringify(res));
+      navigate("/");
     } catch (e) {
-      console.log("error", e.response.data.error)
+      console.log("error", e.response.data.error);
     }
-  }
+  };
   return (
     <div className="login w-full h-screen p-16 flex justify-center items-center ">
       <form
@@ -50,11 +50,7 @@ const Login = () => {
           placeholder="****"
           onChange={(e) => setPassword(e.target.value)}
         />
-        {loginMutation.isError && (
-          <p className="text-white text-lg">
-            {loginMutation.error.response.data.error}
-          </p>
-        )}
+
         <button
           className=" bg-secondary border hover:bg-primary text-white py-3 w-full rounded-md text-xl mt-7"
           type="submit"
@@ -62,9 +58,14 @@ const Login = () => {
         >
           {loginMutation.isLoading ? "Logging in..." : "Login"}
         </button>
+        {loginMutation.isError && (
+          <p className="text-red-400 text-base">
+            {loginMutation.error.response.data.error}
+          </p>
+        )}
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
