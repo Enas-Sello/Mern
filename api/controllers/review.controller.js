@@ -3,11 +3,18 @@ import Review from "../models/review.model.js";
 import gigModel from "../models/gig.model.js";
 import User from "../models/user.model.js";
 import orderModel from "../models/order.model.js";
+import {
+  DuplicateResponse,
+  ForbiddenResponse,
+  PurchasedResponse,
+  ReviewResponse,
+} from "../core/ApiResponse.js";
+import { pagination } from "../core/pagination.js";
 
 // createReview
 export const createReview = async (req, res, next) => {
   if (req.isSeller) {
-    return next(createError("seller can not crearte review", 403));
+    return next(createError(ReviewResponse, 403));
   }
   const NewReview = new Review({
     userId: req.userId,
@@ -27,13 +34,11 @@ export const createReview = async (req, res, next) => {
     });
 
     if (review) {
-      return next(
-        createError("you have already created review for this gig", 403)
-      );
+      return next(createError(DuplicateResponse, 403));
     }
 
     if (!purchasedReview) {
-      return next(createError("you did not  purchased this gig", 403));
+      return next(createError(PurchasedResponse, 403));
     }
 
     const saveReview = await NewReview.save();
@@ -53,9 +58,24 @@ export const createReview = async (req, res, next) => {
 
 // getReview
 export const getReview = async (req, res, next) => {
+  const { page, limit } = req.query;
+  const { skip, limit: paginatedLimit } = pagination(page, limit);
+
   try {
-    const allReviews = await Review.find({ gigID: req.params.gigID });
-    res.status(201).send(allReviews);
+    const allReviews = await Review.find({ gigID: req.params.gigID })
+      // .sort({ [q.sort]: -1 })
+      .skip(skip)
+      .limit(paginatedLimit);
+    const totalReviews = await Review.countDocuments();
+
+    res
+      .status(201)
+      .send({
+        data: allReviews,
+        page,
+        limit: paginatedLimit,
+        total: totalReviews,
+      });
   } catch (error) {
     next(error);
   }
@@ -66,11 +86,11 @@ export const deleteReview = async (req, res, next) => {
   const user = await User.findById(req.userId);
   const review = await Review.findById(req.params.gigId);
   try {
-    if (user.isSeller) createError("sellers can not delete reviews ", 403);
+    if (user.isSeller) createError(ReviewResponse, 403);
     if (review && review.userId !== req.userId)
-      createError("you can only delete your reviews ", 403);
+      createError(ForbiddenResponse, 403);
     await Review.findByIdAndDelete(req.params.id);
-    res.status(200).send("done");
+    res.status(200).send("success");
   } catch (error) {
     next(error);
   }

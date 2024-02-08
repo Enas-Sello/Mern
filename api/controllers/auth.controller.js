@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { createError } from "../middleware/errorHandler.js";
+import { AuthFailureResponse, NotFoundResponse } from "../core/ApiResponse.js";
 // register
 export const register = async (req, res, next) => {
   try {
@@ -11,7 +12,7 @@ export const register = async (req, res, next) => {
       password: hasaPass,
     });
     await newUser.save();
-    res.status(201).send("done");
+    res.status(201).send("success");
   } catch (error) {
     next(error);
   }
@@ -21,9 +22,9 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
-    if (!user) return next(createError("user not found", 404));
+    if (!user) return next(createError(NotFoundResponse, 404));
     const userPass = bcrypt.compareSync(req.body.password, user.password);
-    if (!userPass) return next(createError("wrong username or password", 400));
+    if (!userPass) return next(createError(AuthFailureResponse, 400));
     const token = jwt.sign(
       { id: user._id, isSeller: user.isSeller },
       process.env.JWT
@@ -38,7 +39,7 @@ export const login = async (req, res, next) => {
 // logout
 export const logout = async (req, res) => {
   try {
-    res.clearCookie("accessToken", {}).status(200).send("user has been logOut");
+    res.clearCookie("accessToken", {}).status(200).send("success");
   } catch (error) {
     next(error);
   }

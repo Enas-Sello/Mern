@@ -14,8 +14,6 @@ const Review = ({ gigID }) => {
     isError,
     error,
   } = useApiQuery(`review/${gigID}`, `review/65be886aa63f55e88ecdfd30`);
-  console.log(!isLoading && "review", reviews);
-  console.log(!isError && "error", error);
   return (
     <>
       {isLoading && <Loading />}
@@ -23,7 +21,7 @@ const Review = ({ gigID }) => {
       {reviews && (
         <div className="flex flex-col gap-3 mt-10">
           <h3 className=" font-medium text-2xl">reviews</h3>
-          {reviews.map((review) => (
+          {reviews.data.map((review) => (
             <div key={review._id} className="flex flex-col gap-1">
               <div className="flex gap-2">
                 <img

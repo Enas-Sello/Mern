@@ -12,7 +12,7 @@ const Gigs = () => {
     max: "",
   });
   // data feathing
-  const { data, isLoading, isError, isFetching, refetch } = useApiQuery(
+  const { data:gigs, isLoading, isError, isFetching, refetch } = useApiQuery(
     "gigs",
     `gig/allGigs?min=${price.min}&max=${price.max}&sort=${sort}`
   );
@@ -97,7 +97,7 @@ const Gigs = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 pt-10">
           {isLoading || (isFetching && <Loading />)}
           {isError && "something went wrong"}
-          {data && data.map((card) => <GigCard key={card._id} card={card} />)}
+          {gigs && gigs.data.map((card) => <GigCard key={card._id} card={card} />)}
         </div>
       </div>
     </section>

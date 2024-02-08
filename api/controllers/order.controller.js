@@ -1,6 +1,7 @@
 import orderModel from "../models/order.model.js";
 import gigModel from "../models/gig.model.js";
 import { createError } from "../middleware/errorHandler.js";
+import { validationError } from "../core/ValidationError.js";
 
 // create order
 export const createOrder = async (req, res, next) => {
@@ -15,6 +16,12 @@ export const createOrder = async (req, res, next) => {
       price: gig.price,
       payment_intent: "temporary",
     });
+    // Validate the gig instance
+    const errors = validationError(newOrder);
+    if (errors) {
+      res.status(400).json({ errors });
+    }
+
     await newOrder.save();
     res.status(200).send(newOrder);
   } catch (error) {

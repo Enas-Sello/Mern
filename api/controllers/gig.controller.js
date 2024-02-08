@@ -1,20 +1,25 @@
+import {
+  ForbiddenResponse,
+  NotFoundResponse,
+  SellerResponse,
+} from "../core/ApiResponse.js";
 import { validationError } from "../core/ValidationError.js";
+import { pagination } from "../core/pagination.js";
 import { createError } from "../middleware/errorHandler.js";
 import gigModel from "../models/gig.model.js";
 
 // createGig
 export const createGig = async (req, res, next) => {
-  if (!req.isSeller)
-    return next(createError("only seller can create gig", 403));
+  if (!req.isSeller) return next(createError(SellerResponse, 403));
   const newGig = new gigModel({
     userId: req.userId,
     ...req.body,
   });
-   // Validate the bank instance
-   const errors = validationError(newGig);
-   if (errors) {
-     res.status(400).json({ errors });
-   }
+  // Validate the gig instance
+  const errors = validationError(newGig);
+  if (errors) {
+    res.status(400).json({ errors });
+  }
 
   try {
     const saveGig = await newGig.save();
@@ -25,6 +30,13 @@ export const createGig = async (req, res, next) => {
 };
 // getAllGigs
 export const getAllGigs = async (req, res, next) => {
+  const { page, limit, search } = req.query;
+  const { skip, limit: paginatedLimit } = pagination(page, limit);
+  // let searchFilters = {};
+  // if (search) {
+  //   searchFilters = searchFilters(search, ["title", "category"]);
+  // }
+
   const q = req.query;
   const filters = {
     ...(q.userId && { userId: q?.userId }),
@@ -39,9 +51,16 @@ export const getAllGigs = async (req, res, next) => {
   };
 
   try {
-    const gigs = await gigModel.find(filters).sort({ [q.sort]: -1 });
+    const gigs = await gigModel
+      .find(filters)
+      .sort({ [q.sort]: -1 })
+      .skip(skip)
+      .limit(paginatedLimit);
 
-    res.status(200).send(gigs);
+    const totalgigs = await gigModel.countDocuments(filters);
+    res
+      .status(200)
+      .send({ data: gigs, total: totalgigs, page, limit: paginatedLimit });
   } catch (error) {
     next(error);
   }
@@ -50,7 +69,7 @@ export const getAllGigs = async (req, res, next) => {
 export const getGig = async (req, res, next) => {
   try {
     const gig = await gigModel.findById(req.params.id);
-    if (!gig) next(createError("gig not found", 401));
+    if (!gig) next(createError(NotFoundResponse, 401));
     res.status(200).send(gig);
   } catch (error) {
     next(error);
@@ -60,11 +79,11 @@ export const getGig = async (req, res, next) => {
 export const deleteGig = async (req, res, next) => {
   try {
     const gig = await gigModel.findById(req.params.id);
-    if (!gig) next(createError("gig not found", 401));
+    if (!gig) next(createError(NotFoundResponse, 401));
     if (gig.userId !== req.userId)
-      return next(createError("you can delete only your gigs", 403));
+      return next(createError(ForbiddenResponse, 403));
     await gigModel.findByIdAndDelete(req.params.id);
-    res.status(200).send("gig has been deleted");
+    res.status(200).send("success");
   } catch (error) {
     next(error);
   }

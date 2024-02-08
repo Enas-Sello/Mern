@@ -11,16 +11,16 @@ dotenv.config();
 const corsOptions = {
   origin: process.env.CORS_URL,
   credentials: true,
+  optionsSuccessStatus: 200,
 };
-const PORT = 8801;
 // Connect to DB
 async function run() {
   try {
     await mongoose.connect(process.env.DB_URL);
     console.log("Connected to MongoDB success");
 
-    app.listen(process.env.PORT || 8800, () => {
-      console.log(`Server running at ${process.env.PORT || 8800}`);
+    app.listen(process.env.PORT || 8801, () => {
+      console.log(`Server running at ${process.env.PORT || 8801}`);
     });
   } catch (e) {
     console.error("Error connecting to MongoDB ", e);
@@ -32,5 +32,5 @@ run().catch(console.dir);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
-app.use("/api", routes)
+app.use("/api", routes);
 app.use(errorHandler);
